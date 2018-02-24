@@ -1,7 +1,7 @@
-package cards;
+package card;
 
 /**
- * Interface for all cards.
+ * Interface for all card.
  */
 public interface Card {
     String getPAN();

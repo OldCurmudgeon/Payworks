@@ -1,4 +1,4 @@
-package cards;
+package utils;
 
 /**
  * Taken from https://github.com/nishan/luhn_java/blob/master/src/org/luhn/Luhn.java

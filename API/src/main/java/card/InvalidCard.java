@@ -1,13 +1,13 @@
-package cards;
+package card;
 
 /**
  * Only getValidity and isValid exposed - all other methods throw InvalidCardException.
  */
-public class InvalidCard extends SimpleCard {
-    final Validator.Validity failure;
+public class InvalidCard extends UncheckedCard {
+    private final Validator.Validity failure;
 
-    InvalidCard(Card card, Validator.Validity failure) {
-        super(card.getPAN());
+    InvalidCard(String pan, Validator.Validity failure) {
+        super(pan);
         this.failure = failure;
     }
 

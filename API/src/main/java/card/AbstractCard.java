@@ -1,7 +1,7 @@
-package cards;
+package card;
 
 /**
- * Base functionality for all cards.
+ * Base functionality for all card.
  */
 abstract class AbstractCard implements Card {
     public Validator.Validity getValidity() {
