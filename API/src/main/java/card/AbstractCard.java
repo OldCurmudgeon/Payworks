@@ -7,10 +7,10 @@ abstract class AbstractCard implements Card {
     /**
      * Default all cards to Valid.
      *
-     * @return A {@link card.Validator.Validity#Valid}.
+     * @return A {@link Validity#Valid}.
      */
-    public Validator.Validity getValidity() {
-        return Validator.Validity.Valid;
+    public Validity getValidity() {
+        return Validity.Valid;
     }
 
     /**
@@ -20,5 +20,10 @@ abstract class AbstractCard implements Card {
      */
     public boolean isValid() {
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Card{PAN=" + getPAN() + " Scheme=" + getScheme() + " Validity=" + getValidity();
     }
 }

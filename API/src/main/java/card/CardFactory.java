@@ -36,7 +36,7 @@ public class CardFactory {
     /**
      * Validates and builds a Card from the accumulated parameters.
      *
-     * If any of the card details are invalid then an {@Link card.InvalidCard#} is built.
+     * If any of the card details are invalid then an InvalidCard is built.
      *
      * @return A Card object.
      */
@@ -44,8 +44,8 @@ public class CardFactory {
         // Start with a simple card.
         Card card = new UncheckedCard(pan);
         // Is it valid?.
-        Validator.Validity validity = Validator.validCard(card);
-        if (validity == Validator.Validity.Valid) {
+        Validity validity = Validator.validCard(card);
+        if (validity == Validity.Valid) {
             // Look up it's scheme.
             Range range = ranges.lookup(card.getPAN());
             if (range.getScheme() != Scheme.Unknown) {
@@ -53,7 +53,7 @@ public class CardFactory {
                 card = new ValidCard(pan, range.getScheme());
             } else {
                 // Range not found.
-                card = new InvalidCard(pan, Validator.Validity.RangeNotConfigured);
+                card = new InvalidCard(pan, Validity.RangeNotConfigured);
             }
         } else {
             // Invalid PAN. Create an Invalid card.

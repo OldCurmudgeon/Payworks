@@ -13,6 +13,9 @@ public class Range implements IntervalTree.Interval {
     private final long end;
 
     public Range(Scheme scheme, long start, long end) {
+        if (end < start) {
+            throw new RuntimeException("Bad range (" + start + "," + end + ") end < start.");
+        }
         this.scheme = scheme;
         this.start = start;
         this.end = end;
@@ -55,5 +58,14 @@ public class Range implements IntervalTree.Interval {
         result = 31 * result + (int) (start ^ (start >>> 32));
         result = 31 * result + (int) (end ^ (end >>> 32));
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Range{" +
+                "scheme=" + scheme +
+                ", start=" + start +
+                ", end=" + end +
+                '}';
     }
 }

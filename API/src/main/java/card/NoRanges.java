@@ -1,7 +1,5 @@
 package card;
 
-import utils.IntervalTree;
-
 import java.util.Arrays;
 
 /**
@@ -10,6 +8,6 @@ import java.util.Arrays;
 class NoRanges extends Ranges {
     NoRanges() {
         // One single unknown range.
-        super(new IntervalTree<>(Arrays.asList(new Range(Scheme.Unknown, 0, Long.MAX_VALUE))));
+        super(Arrays.asList(new Range(Scheme.Unknown, 0, Long.MAX_VALUE)));
     }
 }

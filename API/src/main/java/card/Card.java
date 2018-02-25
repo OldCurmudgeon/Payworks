@@ -15,9 +15,9 @@ public interface Card {
     /**
      * Get the validity of the card.
      *
-     * @return A {@link card.Validator.Validity} for the card.
+     * @return A {@link Validity} for the card.
      */
-    Validator.Validity getValidity();
+    Validity getValidity();
 
     /**
      * Quick test for validity of the card.

@@ -5,6 +5,7 @@ package card;
  */
 public enum Scheme {
     Unknown,
+    Custom,
     Visa,
     VisaElectron,
     VisaPurchase,

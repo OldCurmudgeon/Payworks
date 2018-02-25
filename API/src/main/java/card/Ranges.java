@@ -14,7 +14,7 @@ import java.util.stream.Stream;
  *
  * The narrowest range found is then chosen for the scheme of the card.
  *
- * TODO: Decide what to do if there are two matching ranges of the same length.
+ * TODO: Decide what to do if there are two matching ranges of the shortest length.
  * TODO: Add exclusion ranges.
  */
 public abstract class Ranges {
@@ -29,10 +29,21 @@ public abstract class Ranges {
     /**
      * Construct the Ranges object with a tree of ranges to use.
      *
-     * @param tree - The tree to use.
+     * @param ranges - The ranges to use.
      */
-    protected Ranges(IntervalTree<Range> tree) {
-        this.tree = tree;
+    protected Ranges(List<Range> ranges) {
+        this.tree = new IntervalTree<>(enhanceRanges(ranges));
+    }
+
+    /**
+     * Allow for enhancing te range list befor the tree is constructed.
+     *
+     * @param ranges - The ranges about to be added.
+     * @return - The enhanced range list.
+     */
+    protected List<Range> enhanceRanges(List<Range> ranges) {
+        // By default, just pass it through.
+        return ranges;
     }
 
     /**
@@ -48,6 +59,7 @@ public abstract class Ranges {
                 .sorted(RANGE_LENGTH_ASCENDING)
                 // Grab the smallest range.
                 .findFirst()
+                // Or it is not configured.
                 .orElse(UNCONFIGURED_RANGE);
     }
 
@@ -89,22 +101,25 @@ public abstract class Ranges {
      *
      * All supplied ranges for all supplied lengths are included in the result.
      *
-     * See {@Link card.Ranges#makeRange(card.Scheme, java.lang.String, int)} for details of the format of the range parameter.
+     * See makeRange(card.Scheme, java.lang.String, int) for details of the format of the range parameter.
      *
-     * @param scheme - The scheme to supply to the ranges.
-     * @param ranges - The ranges to use.
+     * @param scheme  - The scheme to supply to the ranges.
+     * @param ranges  - The ranges to use.
      * @param lengths - The PAN length to use.
      * @return A list of build ranges.
      */
     protected static List<Range> makeRanges(Scheme scheme, String[] ranges, int[] lengths) {
         return IntStream.of(lengths)
+                // Make the ranges lists.
                 .mapToObj(length -> makeRanges(scheme, ranges, length))
+                // Flatten them.
                 .flatMap(List::stream)
+                // We wan a list.
                 .collect(Collectors.toList());
     }
 
     /**
-     * As {@Link card.Ranges#makeRanges(card.Scheme, java.lang.String[], int[])} but for just one length
+     * As makeRanges(card.Scheme, java.lang.String[], int[]) but for just one length
      *
      * @param scheme - The scheme to supply to the ranges.
      * @param ranges - The ranges to use.
@@ -113,7 +128,7 @@ public abstract class Ranges {
      */
     protected static List<Range> makeRanges(Scheme scheme, String[] ranges, int digits) {
         return Arrays.stream(ranges)
-                // Make all ranges - one per digit
+                // Make all ranges - one per range string.
                 .map(r -> makeRange(scheme, r, digits))
                 // Gather them up into a list.
                 .collect(Collectors.toList());
@@ -129,22 +144,26 @@ public abstract class Ranges {
      *
      * The range parameter takes the form generally used in IIN range documentation.
      *
-     * 123456-9 -> First six digits are between 123456 and 123459 inclusive.
-     * 4 -> Equivalent to 4-4.
+     * 123456-9 = First six digits are between 123456 and 123459 inclusive.
+     * 4 = Equivalent to 4-4.
      *
      * The start and end of the range are calculated by taking the base digits and padding them out to the right
      * to achieve the desired length. The start range is padded with "0", the end range with "9".
      *
      * @param scheme - The scheme to attach to the range.
-     * @param range - The range string to interpret.
+     * @param range  - The range string to interpret.
      * @param digits - The number of digits in the pan.
      * @return A Range configured to match PANS of the specified number of digits in the specified range.
      */
-    private static Range makeRange(Scheme scheme, String range, int digits) {
+    public static Range makeRange(Scheme scheme, String range, int digits) {
         String[] parts = range.split("-");
         // "n" means "n-n"
         if (parts.length < 2) {
             parts = new String[]{parts[0], parts[0]};
+        }
+        // "123456-9" means "123456-123459"
+        if (parts[0].length() > parts[1].length()) {
+            parts[1] = parts[0].substring(0, parts[0].length() - parts[1].length()) + parts[1];
         }
         // Start is padded with zeros.
         long start = Long.parseLong((parts[0] + ZEROS).substring(0, digits));

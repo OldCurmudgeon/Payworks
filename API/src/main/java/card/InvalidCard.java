@@ -6,15 +6,15 @@ package card;
  * Only getValidity and isValid exposed - all other methods should throw InvalidCardException.
  */
 public class InvalidCard extends UncheckedCard {
-    private final Validator.Validity failure;
+    private final Validity failure;
 
-    InvalidCard(String pan, Validator.Validity failure) {
+    InvalidCard(String pan, Validity failure) {
         super(pan);
         this.failure = failure;
     }
 
     @Override
-    public Validator.Validity getValidity() {
+    public Validity getValidity() {
         return failure;
     }
 

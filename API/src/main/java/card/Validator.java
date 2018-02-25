@@ -9,25 +9,6 @@ public class Validator {
     public static final int MIN_PAN_LENGTH = 12;
     public static final int MAX_PAN_LENGTH = 19;
 
-    public enum Validity {
-        Valid("Valid card"),
-        InvalidLength("Invalid PAN length - should be between " + MIN_PAN_LENGTH + " and " + MAX_PAN_LENGTH),
-        AllDigits("A PAN must contain only digits"),
-        NoLeadingZeros("A PAN cannot start with a 0"),
-        InvalidLuhn("A PAN must have a valid Luhn check-digit"),
-        RangeNotConfigured("Card range not configured");
-        private final String message;
-
-        Validity(String message) {
-            this.message = message;
-        }
-
-        @Override
-        public String toString() {
-            return name() + ":" + message;
-        }
-    }
-
     private enum PANValidator {
         ValidLength(Validity.InvalidLength) {
             boolean check(String pan) {
@@ -35,7 +16,7 @@ public class Validator {
                         && pan.length() <= MAX_PAN_LENGTH;
             }
         },
-        AllDigits(Validity.AllDigits) {
+        AllDigits(Validity.NonDigits) {
             boolean check(String pan) {
                 boolean valid = true;
                 for (int i = 0; i < pan.length() && valid; i++) {
@@ -46,7 +27,7 @@ public class Validator {
                 return valid;
             }
         },
-        NoLeadingZeros(Validity.NoLeadingZeros) {
+        NoLeadingZeros(Validity.LeadingZeros) {
             boolean check(String pan) {
                 return pan.charAt(0) != '0';
             }

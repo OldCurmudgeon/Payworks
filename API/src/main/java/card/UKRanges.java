@@ -1,7 +1,5 @@
 package card;
 
-import utils.IntervalTree;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -70,7 +68,7 @@ public class UKRanges extends Ranges {
 
     }
 
-    private static IntervalTree<Range> buildRanges() {
+    private static List<Range> buildRanges() {
         List<Range> allRanges = Arrays.stream(UKRange.values())
                 // The ranges field of each enum.
                 .map(e -> e.ranges)
@@ -78,6 +76,6 @@ public class UKRanges extends Ranges {
                 .flatMap(List::stream)
                 // Gather them up into a list.
                 .collect(Collectors.toList());
-        return new IntervalTree<>(allRanges);
+        return allRanges;
     }
 }
