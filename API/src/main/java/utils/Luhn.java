@@ -1,64 +1,24 @@
 package utils;
 
 /**
- * Taken from https://github.com/nishan/luhn_java/blob/master/src/org/luhn/Luhn.java
- *
- * Could be significantly improved in efficiency.
+ * Simple Luhn checker
  */
 public class Luhn {
 
-    /**
-     * Validate a number string using Luhn algorithm
-     *
-     * @param numberString
-     * @return true if
-     */
-    public static boolean validate(String numberString) {
-        return checkSum(numberString) == 0;
-    }
-
-    /**
-     * Generate check digit for a number string. Assumes check digit or a place
-     * holder is already appended at end of the string.
-     *
-     * @param numberString
-     * @return
-     */
-    public static int checkSum(String numberString) {
-        return checkSum(numberString, false);
-    }
-
-    /**
-     * Generate check digit for a number string.
-     *
-     * @param numberString
-     * @param noCheckDigit Whether check digit is present or not. True if no check Digit
-     *                     is appended.
-     * @return
-     */
-    public static int checkSum(String numberString, boolean noCheckDigit) {
-        int sum = 0, checkDigit = 0;
-
-        if (!noCheckDigit)
-            numberString = numberString.substring(0, numberString.length() - 1);
-
-        boolean isDouble = true;
-        for (int i = numberString.length() - 1; i >= 0; i--) {
-            int k = Integer.parseInt(String.valueOf(numberString.charAt(i)));
-            sum += sumToSingleDigit((k * (isDouble ? 2 : 1)));
-            isDouble = !isDouble;
+    public static boolean check(String ccNumber) {
+        int sum = 0;
+        boolean alternate = false;
+        for (int i = ccNumber.length() - 1; i >= 0; i--) {
+            int n = Integer.parseInt(ccNumber.substring(i, i + 1));
+            if (alternate) {
+                n *= 2;
+                if (n > 9) {
+                    n = (n % 10) + 1;
+                }
+            }
+            sum += n;
+            alternate = !alternate;
         }
-
-        if ((sum % 10) > 0)
-            checkDigit = (10 - (sum % 10));
-
-        return checkDigit;
+        return (sum % 10 == 0);
     }
-
-    private static int sumToSingleDigit(int k) {
-        if (k < 10)
-            return k;
-        return sumToSingleDigit(k / 10) + (k % 10);
-    }
-
 }

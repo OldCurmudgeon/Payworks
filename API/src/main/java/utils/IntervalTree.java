@@ -138,9 +138,9 @@ public class IntervalTree<T extends IntervalTree.Interval> {
      * What an interval looks like.
      */
     public interface Interval {
-        public long getStart();
+        long getStart();
 
-        public long getEnd();
+        long getEnd();
 
     }
 

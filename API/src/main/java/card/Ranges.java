@@ -2,12 +2,10 @@ package card;
 
 import utils.IntervalTree;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * Manages card range and PAN lookups.
@@ -23,25 +21,38 @@ public abstract class Ranges {
     }
 
     public Range lookup(String pan) {
-        tree.query(Long.parseLong(pan))
+        return tree.query(Long.parseLong(pan))
                 .stream()
                 // Sort it ascending.
                 .sorted(RANGE_LENGTH_ASCENDING)
                 // Grab the smallest range.
                 .findFirst()
                 .orElse(UNCONFIGURED_RANGE);
-        return null;
     }
 
-    public static List<Range> makeRanges(Scheme scheme, String[] ranges, int[] lengths) {
+    public List<Range> lookup(String[] pans) {
+        return lookup(Arrays.stream(pans))
+                .collect(Collectors.toList());
+    }
+
+    public List<Range> lookup(Collection<String> pans) {
+        return pans.stream()
+                .map(pan -> lookup(pan))
+                .collect(Collectors.toList());
+    }
+
+    public Stream<Range> lookup(Stream<String> pans) {
+        return pans.map(pan -> lookup(pan));
+    }
+
+    protected static List<Range> makeRanges(Scheme scheme, String[] ranges, int[] lengths) {
         return IntStream.of(lengths)
-                .boxed()
-                .map(length -> makeRanges(scheme, ranges, length))
+                .mapToObj(length -> makeRanges(scheme, ranges, length))
                 .flatMap(List::stream)
                 .collect(Collectors.toList());
     }
 
-    public static List<Range> makeRanges(Scheme scheme, String[] ranges, int digits) {
+    protected static List<Range> makeRanges(Scheme scheme, String[] ranges, int digits) {
         return Arrays.stream(ranges)
                 // Make all ranges - one per digit
                 .map(r -> makeRange(scheme, r, digits))

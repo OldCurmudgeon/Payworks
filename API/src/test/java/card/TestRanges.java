@@ -1,4 +1,4 @@
-package range;
+package card;
 
 import card.Range;
 import card.Ranges;

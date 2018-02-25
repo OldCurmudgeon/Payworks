@@ -24,7 +24,7 @@ public class Validator {
 
         @Override
         public String toString() {
-            return message;
+            return name()+":"+message;
         }
     }
 
@@ -53,7 +53,7 @@ public class Validator {
         },
         ValidLuhn(Validity.InvalidLuhn) {
             boolean check(String pan) {
-                return Luhn.validate(pan);
+                return Luhn.check(pan);
             }
         };
         final Validity failure;
@@ -70,6 +70,8 @@ public class Validator {
         for (PANValidator v : PANValidator.values()) {
             if(!v.check(card.getPAN())){
                 validity = v.failure;
+                // Detect only the first issue.
+                break;
             }
         }
         return validity;

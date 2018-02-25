@@ -10,5 +10,5 @@ public enum Scheme {
     VisaPurchase,
     MasterCard,
     Maestro,
-    ChinaUnionPay;
+    ChinaUnionPay
 }
