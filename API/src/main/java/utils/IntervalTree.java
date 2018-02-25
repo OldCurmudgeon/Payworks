@@ -35,11 +35,12 @@ public class IntervalTree<T extends IntervalTree.Interval> {
         // Find my center.
         center = findCenter();
 
-    /*
-     * Builds lefts out of all intervals that end below my center.
-     * Builds rights out of all intervals that start above my center.
-     * What remains contains all the intervals that contain my center.
-     */
+        /*
+         * Builds lefts out of all intervals that end below my center.
+         * Builds rights out of all intervals that start above my center.
+         * What remains are all the intervals that contain my center.
+         */
+
         // Lefts contains all intervals that end below my center point.
         final List<T> lefts = new ArrayList<>();
         // Rights contains all intervals that start above my center point.
@@ -48,15 +49,15 @@ public class IntervalTree<T extends IntervalTree.Interval> {
         // Track my bounds while distributing.
         long uB = Long.MIN_VALUE;
         long lB = Long.MAX_VALUE;
-        for (T i : intervals) {
-            long start = i.getStart();
-            long end = i.getEnd();
+        for (T interval : intervals) {
+            long start = interval.getStart();
+            long end = interval.getEnd();
             if (end < center) {
                 // It ends below me - move it to my left.
-                lefts.add(i);
+                lefts.add(interval);
             } else if (start > center) {
                 // It starts above me - move it to my right.
-                rights.add(i);
+                rights.add(interval);
             } else {
                 // One of mine.
                 lB = Math.min(lB, start);
@@ -118,7 +119,6 @@ public class IntervalTree<T extends IntervalTree.Interval> {
     }
 
     private long findCenter() {
-        //return average();
         return median();
     }
 
@@ -141,7 +141,6 @@ public class IntervalTree<T extends IntervalTree.Interval> {
         long getStart();
 
         long getEnd();
-
     }
 
     /*

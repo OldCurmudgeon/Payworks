@@ -1,8 +1,5 @@
 package card;
 
-import card.Range;
-import card.Ranges;
-import card.Scheme;
 import utils.IntervalTree;
 
 import java.util.Arrays;
@@ -30,7 +27,7 @@ public class TestRanges extends Ranges {
                 "222100-272099",
                 "510000-559999",
         }, IntStream.range(11, 19).toArray()),
-        Maestro(Scheme.Maestro, new String[]{
+        Maestro(Scheme.MaestroUK, new String[]{
                 "500000-509999",
                 "560000-699999",
         }, IntStream.range(11, 19).toArray()),

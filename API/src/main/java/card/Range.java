@@ -4,6 +4,8 @@ import utils.IntervalTree;
 
 /**
  * Represents a card range associated with a scheme.
+ *
+ * These are used in the Interval tree for lookups.
  */
 public class Range implements IntervalTree.Interval {
     private final Scheme scheme;

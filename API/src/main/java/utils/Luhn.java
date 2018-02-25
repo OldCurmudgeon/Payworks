@@ -5,11 +5,12 @@ package utils;
  */
 public class Luhn {
 
-    public static boolean check(String ccNumber) {
+    public static boolean check(String pan) {
         int sum = 0;
+        // Alternate digits are treated differently.
         boolean alternate = false;
-        for (int i = ccNumber.length() - 1; i >= 0; i--) {
-            int n = Integer.parseInt(ccNumber.substring(i, i + 1));
+        for (int i = pan.length() - 1; i >= 0; i--) {
+            int n = Character.digit(pan.charAt(i),10);
             if (alternate) {
                 n *= 2;
                 if (n > 9) {

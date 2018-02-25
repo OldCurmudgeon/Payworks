@@ -1,7 +1,7 @@
 package card;
 
 /**
- * Interface for all card.
+ * Interface for all cards.
  */
 public interface Card {
 
@@ -15,7 +15,7 @@ public interface Card {
     /**
      * Get the validity of the card.
      *
-     * @return A {@link card.Validator.Validity#} for the card.
+     * @return A {@link card.Validator.Validity} for the card.
      */
     Validator.Validity getValidity();
 
@@ -29,7 +29,7 @@ public interface Card {
     /**
      * Get the scheme associated with this card.
      *
-     * @return The {@Link card.Scheme#} of the card.
+     * @return The Scheme of the card.
      */
     Scheme getScheme();
 }

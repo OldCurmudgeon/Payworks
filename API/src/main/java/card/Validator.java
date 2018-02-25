@@ -24,7 +24,7 @@ public class Validator {
 
         @Override
         public String toString() {
-            return name()+":"+message;
+            return name() + ":" + message;
         }
     }
 
@@ -68,7 +68,7 @@ public class Validator {
     static Validity validCard(Card card) {
         Validity validity = Validity.Valid;
         for (PANValidator v : PANValidator.values()) {
-            if(!v.check(card.getPAN())){
+            if (!v.check(card.getPAN())) {
                 validity = v.failure;
                 // Detect only the first issue.
                 break;

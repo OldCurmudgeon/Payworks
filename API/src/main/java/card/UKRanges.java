@@ -2,8 +2,9 @@ package card;
 
 import utils.IntervalTree;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
@@ -11,7 +12,7 @@ import java.util.stream.IntStream;
  *
  * Derived from https://www.barclaycard.co.uk/business/files/BIN-Rules-UK.pdf
  *
- * TODO: Complete the configuration for all UK card ranges.
+ * NB: In a mature environment this enum should be replaced by reading the details from properties.
  */
 public class UKRanges extends Ranges {
     public UKRanges() {
@@ -45,26 +46,38 @@ public class UKRanges extends Ranges {
         VisaPurchase(Scheme.VisaPurchase, new String[]{
                 "448400-448699",
                 "471500-99",
-        }, IntStream.range(11, 19).toArray());
+        }, IntStream.range(11, 19).toArray()),
+        MasterCard(Scheme.MasterCard, new String[]{
+                "510000-559999",
+                "222100-272099",
+        }, new int[]{16}),
+        JCB(Scheme.JCB, new String[]{
+                "352800-358999",
+        }, IntStream.range(16, 19).toArray()),
+        MaestroUK(Scheme.MaestroUK, new String[]{
+                "675900-675999",
+                "676770-676774",
+        }, IntStream.range(12, 19).toArray()),
+        MaestroIntl(Scheme.MaestroIntl, new String[]{
+                "50",
+                "56-69",
+        }, IntStream.range(12, 19).toArray()),;
         private final List<Range> ranges;
 
-        /*
-         * Constructor in this form allows for copy/paste from current IIN range documentation.
-         */
-        UKRange(Scheme scheme, String[] range, int... lengths) {
-            ranges = new ArrayList<>();
-            for (int length : lengths) {
-                ranges.addAll(makeRanges(scheme, range, length));
-            }
+        UKRange(Scheme scheme, String[] ranges, int... lengths) {
+            this.ranges = makeRanges(scheme, ranges, lengths);
         }
 
     }
 
     private static IntervalTree<Range> buildRanges() {
-        List<Range> allRanges = new ArrayList<>();
-        for (UKRange range : UKRange.values()) {
-            allRanges.addAll(range.ranges);
-        }
+        List<Range> allRanges = Arrays.stream(UKRange.values())
+                // The ranges field of each enum.
+                .map(e -> e.ranges)
+                // Flatten them all into one list.
+                .flatMap(List::stream)
+                // Gather them up into a list.
+                .collect(Collectors.toList());
         return new IntervalTree<>(allRanges);
     }
 }

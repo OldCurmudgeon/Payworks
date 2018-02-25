@@ -1,7 +1,9 @@
 package card;
 
 /**
- * Only getValidity and isValid exposed - all other methods throw InvalidCardException.
+ * Represents an invalid card.
+ *
+ * Only getValidity and isValid exposed - all other methods should throw InvalidCardException.
  */
 public class InvalidCard extends UncheckedCard {
     private final Validator.Validity failure;

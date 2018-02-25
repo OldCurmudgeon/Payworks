@@ -10,7 +10,7 @@ class UncheckedCard extends AbstractCard {
     private final Scheme scheme;
 
     UncheckedCard(String pan) {
-        this(pan,Scheme.Unknown);
+        this(pan, Scheme.Unknown);
     }
 
     protected UncheckedCard(String pan, Scheme scheme) {
@@ -21,6 +21,7 @@ class UncheckedCard extends AbstractCard {
     public String getPAN() {
         return pan;
     }
+
     public Scheme getScheme() {
         return scheme;
     }

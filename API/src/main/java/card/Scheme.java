@@ -1,14 +1,19 @@
 package card;
 
 /**
- * Created by Paul on 24/02/2018.
+ * Set of available schemes.
  */
 public enum Scheme {
     Unknown,
     Visa,
     VisaElectron,
     VisaPurchase,
+    VisaDebit,
     MasterCard,
-    Maestro,
-    ChinaUnionPay
+    MaestroUK,
+    MaestroIntl,
+    ChinaUnionPay,
+    Amex,
+    Diners,
+    JCB
 }

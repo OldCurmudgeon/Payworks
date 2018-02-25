@@ -40,7 +40,30 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <show>private</show>
+                    <nohelp>true</nohelp>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <stylesheetfile>${basedir}/src/main/javadoc/javadoc-stylesheet.css</stylesheetfile>
+                    <show>public</show>
+                    <excludePackageNames>utils.*</excludePackageNames>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
 </project>

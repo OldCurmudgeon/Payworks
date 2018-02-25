@@ -3,13 +3,13 @@ package card;
 import utils.IntervalTree;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 /**
- * Created by Paul on 24/02/2018.
+ * An empty set of ranges for internal use.
  */
 class NoRanges extends Ranges {
     NoRanges() {
-        super(new IntervalTree<>(Arrays.asList(new Range(Scheme.Unknown,0,Long.MAX_VALUE))));
+        // One single unknown range.
+        super(new IntervalTree<>(Arrays.asList(new Range(Scheme.Unknown, 0, Long.MAX_VALUE))));
     }
 }

@@ -1,10 +1,10 @@
 package card;
 
 /**
- * Created by Paul on 24/02/2018.
+ * A simple valid card.
  */
 public class ValidCard extends UncheckedCard {
     ValidCard(String pan, Scheme scheme) {
-        super(pan,scheme);
+        super(pan, scheme);
     }
 }
