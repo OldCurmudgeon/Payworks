@@ -32,7 +32,7 @@ I have made no attempt to maximise coverage of these tests. In a commercial envi
 
 #### Notes
 
-I have use `Maven` for the build mechanism because I am most familliar with it, it is well supported and popular.
+I have use `Maven` for the build mechanism because I am most familiar with it and it is well supported and popular.
 
 In places where I felt it appropriate I have used Java 8 streams for data manipulation.
 
