@@ -1,0 +1,4 @@
+/**
+ * Card management.
+ */
+package card;
