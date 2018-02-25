@@ -10,11 +10,10 @@ class CardFactoryTest extends Specification {
     @Shared
     Ranges testRanges = new TestRanges();
 
-    def setup() {
-        CardFactory.setRanges(testRanges)
-    }
-
     def "Build works correctly"() {
+        setup:
+        CardFactory.setRanges(testRanges)
+
         expect:
         def card = new CardFactory().setPAN(pan).build();
         card.getValidity() == validity
