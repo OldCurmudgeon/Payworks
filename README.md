@@ -18,7 +18,7 @@ I believe I have achieved most of the functionality I planned to implement.
 
 ##### Data structures
 
-I took the opportunity here to make use of an `Interval tree`. This structure works perfectly for fast lookups of PANS to find the matching scheme. This is a slightly incomplete implementation as the indexes are not used. My implementation does not cover adding and removing of ranges.
+I took the opportunity here to make use of an `Interval tree`. This structure works perfectly for fast lookups of PANS to find the matching scheme. This is a slightly incomplete implementation as the indexes are not used and my implementation does not cover adding and removing of ranges after construction.
  
 #### Proof of correctness
 
