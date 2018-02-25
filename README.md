@@ -40,7 +40,7 @@ I have taken a first-hit on which methods/fields should be secured for access. I
 
 The `IntervalTree` class is copied from the internet but from [one of my answers](https://stackoverflow.com/a/25564351/823393) on StackOverflow. The code was originally written by me but not during the time of this task.
  
-The `Scheme`s are currently hard-coded. These, along with the `UKRanges` would probably be better turned into configurable entities. The `UKRAnges` schemes were transcribed from [Barclays UK BIN rules](https://www.barclaycard.co.uk/business/files/BIN-Rules-UK.pdf).
+The `Scheme`s are currently hard-coded. These, along with the `UKRanges` would probably be better turned into configurable entities. The `UKRanges` schemes were transcribed from [Barclays UK BIN rules](https://www.barclaycard.co.uk/business/files/BIN-Rules-UK.pdf).
 
 The JavaDoc comments would need to be polished before releasing to a customer.
 
